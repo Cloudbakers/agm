@@ -164,6 +164,8 @@ def cli():  # MAIN
     except (InvalidCommandException, InvalidAuthException, argparse.ArgumentError) as e:
         if executor.GoogleAPIRequest.pbar:
             executor.GoogleAPIRequest.pbar.close()
+        if logger.level == logging.DEBUG:
+            logger.exception(e)
         print("ERROR: " + str(e))
 
     except Exception as e:
@@ -176,6 +178,7 @@ def cli():  # MAIN
 def run(fully_parsed_args):
     args = fully_parsed_args[0]
     setup_logging(args.get("verbose"))
+    logger.debug("Using options: {}".format(str(fully_parsed_args)))
     if args.get("V"):
         print(pkg_resources.require("agm")[0].version)
         return
