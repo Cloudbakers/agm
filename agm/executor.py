@@ -38,7 +38,7 @@ class GoogleAPIRequest:
         self.method = method
         self.version = version
         self.user = user
-        self.parameters = {"fields": "*"}  # Default
+        self.parameters = {"fields": "*"}
         self.parameters.update(dict(kwargs))
         if output == "json":
             self.callback = self.json_callback
@@ -143,6 +143,17 @@ def execute_requests(requests, service, version, user, keyfile, scopes):
         for request in requests_chunk:
             if paged(service, request):
                 execute_google_api_call_paged(service, request)
+                request.executed = "paged"
+            elif (
+                "media_body" in request.parameters.keys()
+            ):  # Cannot batch media uploads
+                execute_single_api_call(service, request)
+                request.executed = "single"
+            else:
+                request.executed = None
+        requests_chunk = list(
+            filter(lambda x: not x.executed, requests_chunk)
+        )  # TODO test
         Batch(service, requests_chunk).execute()
         retries = list(filter(lambda x: x.retry and x.retry_count, requests_chunk))
         if len(retries) > 0:
@@ -167,6 +178,19 @@ def paged(service, request):
     except AttributeError:
         # Then there is no "next" call associated with this method"
         return False
+
+
+def execute_single_api_call(service, request):
+    """
+    For items that cannot batch
+    """
+    resource = _get_resource(service, request.resources)
+    api_call = getattr(resource, request.method)(**request.parameters)
+    try:
+        result = api_call.execute(num_retries=NUM_RETRIES)
+    except Exception as e:
+        result = e
+    request.callback(result)
 
 
 def execute_google_api_call_paged(service, request):
@@ -249,7 +273,9 @@ class Batch:
             content = json.loads(exception.content)
         except TypeError:  # Windows is different for some reason
             content = json.loads(exception.content.decode("utf-8"))
-        if "errors" in content["error"].keys():
+        except json.decoder.JSONDecodeError:
+            content = exception.content.decode("utf-8")
+        if isinstance(content, dict) and "errors" in content.get("error", {}).keys():
             error_reason = content["error"]["errors"][0]["reason"]
         else:
             error_reason = "No error reason given"
