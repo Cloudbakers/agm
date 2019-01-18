@@ -307,7 +307,7 @@ def setup_logging(verbose):
         os.makedirs(logfolder)
     logfile = os.path.join(logfolder, "agm_logs.log")
     file_handler = logging.handlers.RotatingFileHandler(
-        logfile, mode="a", maxBytes=1_000_000, backupCount=5
+        logfile, mode="a", maxBytes=10 ** 7, backupCount=5
     )  # Keep ~50MB of logs. Could make this configurable
     file_handler.setLevel(logging.DEBUG)
     if verbose:
