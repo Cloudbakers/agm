@@ -4,7 +4,8 @@ Using AGM
 Basic Usage
 ------------
 
-.. program-output:: agm -h
+.. literalinclude:: argparse.txt
+   :language: text
 
 
 AGM maps commands to the associated `Google API <https://developers.google.com/identity/protocols/googlescopes>`_. Not all APIs have been tested, so please report any issues to the `GitHub Issues <https://github.com/Cloudbakers/agm/issues>`_ page. Separate the API name (e.g. gmail) from the resources (e.g. user messages) from the method, like so:

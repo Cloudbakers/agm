@@ -1,0 +1,44 @@
+usage: agm [-h] [-v] [-u [USER [USER ...]]] [--outfile OUTFILE] [-d]
+           [--version] [--scopes SCOPES [SCOPES ...]] [--keyfile KEYFILE] [-V]
+           [--run_oauth] [--authinfo]
+           [command [command ...]]
+
+ _______ _______ __   __
+|   _   |       |  |_|  |
+|  |_|  |    ___|       |
+|       |   | __|       |
+|       |   ||  |       |
+|   _   |   |_| | ||_|| |
+|__| |__|_______|_|   |_|
+version: 0.1.0
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -v, --verbose         longer output
+
+API:
+  Call the Google API or get docs with agm [service] [resource] [method]
+
+  command               The name of the service to call e.g. drive files list.
+  -u [USER [USER ...]], --user [USER [USER ...]], --users [USER [USER ...]]
+                        The impersonated user(s).
+  --outfile OUTFILE     Send output to a given file.
+  -d, --docs            Open the documentation for this function.
+  --version             specify api version, ie 'v2'. Optional
+  --scopes SCOPES [SCOPES ...]
+                        API scopes to give the key. Optional and usually
+                        unnecessary. If not specified, AGM will try all
+                        possible scopes that could authenticate a command
+                        until it finds one that works. You can drop everything
+                        before the last slash in the url, eg just use
+                        gmail.readonly
+  --keyfile KEYFILE     Optional. specify the keyfile to authenticate with. By
+                        default, AGMlooks for a .json file inside ~/.agm
+
+Tools:
+  AGM tools
+
+  -V                    AGM version
+  --run_oauth           Authenticate an individual Google account and store
+                        the credentials.Requires scopes and user to be set.
+  --authinfo            Print information about authenticated keys
