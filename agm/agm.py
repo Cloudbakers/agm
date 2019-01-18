@@ -230,6 +230,7 @@ def get_list_of_requests(fully_parsed_args):
     for request_cmd in fully_parsed_args:
         command = request_cmd["command"]
         service = command[0]
+        outfile = request_cmd.get("outfile")
         version = request_cmd.get("version") or docs.get_preferred_version(service)
         reserved, _ = parse_known_args([])
         reserved = set(vars(reserved).keys()) - set(["user", "version"])
@@ -256,6 +257,7 @@ def get_list_of_requests(fully_parsed_args):
                     resources=command[1:-1],
                     method=command[-1],
                     version=version,
+                    outfile=outfile,
                     **parameters,
                 )
             )
