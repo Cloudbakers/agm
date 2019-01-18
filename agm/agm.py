@@ -195,6 +195,7 @@ def run(fully_parsed_args):
     check_for_updates()
     logger.debug("Using options: {}".format(str(fully_parsed_args)))
     if args.get("V"):
+        check_for_updates()
         print(pkg_resources.require("agm")[0].version)
         return
     elif args.get("authinfo"):
