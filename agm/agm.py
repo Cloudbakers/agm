@@ -192,6 +192,7 @@ def check_for_updates():
 def run(fully_parsed_args):
     args = fully_parsed_args[0]
     setup_logging(args.get("verbose"))
+    check_for_updates()
     logger.debug("Using options: {}".format(str(fully_parsed_args)))
     if args.get("V"):
         check_for_updates()
