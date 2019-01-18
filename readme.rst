@@ -18,4 +18,4 @@ This tool is currenly in *Alpha*, so bugs are possible. Please report any issues
 Documentation
 -------------
 
-More detailed documentation can be found on [readthedocs]!
+More detailed documentation can be found on `readthedocs <https://agm.readthedocs.io/?>`_!
