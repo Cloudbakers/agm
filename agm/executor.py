@@ -9,6 +9,8 @@ import random
 import logging
 import concurrent.futures
 import itertools
+from socket import error as SocketError
+from urllib3.exceptions import HTTPError
 from . import google_auth
 
 NUM_RETRIES = 10
@@ -211,7 +213,7 @@ class Batch:
         while 1:  # Rare ConnectionErrors. Should be more specific
             try:
                 return batch.execute()
-            except Exception as e:
+            except (IOError, SocketError, HTTPError) as e:
                 logger.error(e)
                 time.sleep(2 ** n)
                 n += 1
