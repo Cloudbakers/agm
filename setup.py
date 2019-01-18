@@ -16,7 +16,6 @@ setup(
     author_email="alex@alexwennerberg.com",
     description="An (unofficial) command line interface for Google APIs",
     long_description=long_description,
-    long_descrption_content_type="text/x-rst",
     url="https://github.com/Cloudbakers/agm",
     install_requires=[
         "requests",
