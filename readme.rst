@@ -1,5 +1,8 @@
 AGM
 ===
+.. image:: https://readthedocs.org/projects/agm/badge/?version=latest
+   :target: https://agm.readthedocs.io/?badge=latest
+   :alt: Documentation Status
 
 AGM is an unofficial command line interface for Google APIs, written in Python. For example, if I wanted to get a list of all the items in my drive account, I would use the command:
 
