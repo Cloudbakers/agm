@@ -8,7 +8,7 @@ To install AGM via pip, run this command:
 ```
 pip install agm
 ```
-If you don't have pip installed, follow [this guide](https://docs.python-guide.org/starting/installation/).
+If you don't have pip installed, follow [this guide](https://docs.python-guide.org/starting/installation/). Depending on your Python environment, you may need to run `pip3` instead of `pip`.
 
 ## Setup
 
@@ -16,7 +16,7 @@ AGM can be authenticated in two ways, via service account or through individual 
 
 ### Service account authentication
 
-First, follow Google's guide for [Using OAuth 2.0 for Server to Server Applications](https://developers.google.com/identity/protocols/OAuth2ServiceAccount#creatinganaccount). Put this key into `~/.agm/` (preferred) or pass it into AGM with the `--keyfile` flag. Beware this key is tremendously powerful. Keep it secret and safe and don't share it with anyone! Be mindful of the scopes you are using and refurnish a new key from time to time.
+First, follow Google's guide for [Using OAuth 2.0 for Server to Server Applications](https://developers.google.com/identity/protocols/OAuth2ServiceAccount#creatinganaccount). Put this key into ~/.agm/ (preferred) or pass it into AGM with the `--keyfile` flag. Beware this key is tremendously powerful. Keep it secret and safe and don't share it with anyone! Be mindful of the scopes you are using and refurnish a new key from time to time.
 
 Make sure any APIs you wanna use are enabled in the project associated with your service account!
 

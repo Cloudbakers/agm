@@ -11,6 +11,8 @@ import logging.handlers
 import os
 import re
 import sys
+from distutils.version import StrictVersion
+import requests
 
 import pkg_resources
 
@@ -164,6 +166,8 @@ def cli():  # MAIN
     except (InvalidCommandException, InvalidAuthException, argparse.ArgumentError) as e:
         if executor.GoogleAPIRequest.pbar:
             executor.GoogleAPIRequest.pbar.close()
+        if logger.level == logging.DEBUG:
+            logger.exception(e)
         print("ERROR: " + str(e))
 
     except Exception as e:
@@ -173,10 +177,24 @@ def cli():  # MAIN
         raise e
 
 
+def check_for_updates():
+    local_version = pkg_resources.require("agm")[0].version
+    url = "https://pypi.org/pypi/agm/json"
+    remote_version = requests.get(url).json()["info"]["version"]
+    if StrictVersion(remote_version) > StrictVersion(local_version):
+        logger.warning(
+            "WARNING: your build of AGM {} is out of date with the latest version {}. AGM is still in Alpha, so this may cause issues. Run pip install --upgrade agm to upgrade.".format(
+                local_version, remote_version
+            )
+        )
+
+
 def run(fully_parsed_args):
     args = fully_parsed_args[0]
     setup_logging(args.get("verbose"))
+    logger.debug("Using options: {}".format(str(fully_parsed_args)))
     if args.get("V"):
+        check_for_updates()
         print(pkg_resources.require("agm")[0].version)
         return
     elif args.get("authinfo"):
@@ -230,6 +248,7 @@ def get_list_of_requests(fully_parsed_args):
     for request_cmd in fully_parsed_args:
         command = request_cmd["command"]
         service = command[0]
+        outfile = request_cmd.get("outfile")
         version = request_cmd.get("version") or docs.get_preferred_version(service)
         reserved, _ = parse_known_args([])
         reserved = set(vars(reserved).keys()) - set(["user", "version"])
@@ -256,6 +275,7 @@ def get_list_of_requests(fully_parsed_args):
                     resources=command[1:-1],
                     method=command[-1],
                     version=version,
+                    outfile=outfile,
                     **parameters,
                 )
             )
