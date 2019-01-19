@@ -67,7 +67,8 @@ class GoogleAPIRequest:
                 else:
                     new_parameters[parameter] = value
             self.parameters = new_parameters
-            self.body = body_data
+            if body_data:
+                self.parameters["body"] = body_data
 
     def get_batched_together(self):
         """
