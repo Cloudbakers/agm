@@ -3,22 +3,29 @@ from agm import executor
 
 
 @pytest.fixture
-def sample_api_request():
-    request = executor.GoogleAPIRequest(
-        "service", ["a", "b"], "method", "v1", sample_field="test"
-    )
-    return request
+def sample_api_params():
+    return {
+        "service": "drive",
+        "resources": ["files"],
+        "method": "create",
+        "version": "v3",
+        "sample_field": "test",
+        "name": "file1",
+    }
 
 
-def test_basic_parameters(sample_api_request):
-    assert sample_api_request.service == "service"
-    assert sample_api_request.resources == ["a", "b"]
-    assert sample_api_request.method == "method"
+def test_basic_parameters(sample_api_params):
+    request = executor.GoogleAPIRequest(**sample_api_params)
+    assert request.service == sample_api_params["service"]
+    assert request.resources == sample_api_params["resources"]
+    assert request.method == sample_api_params["method"]
 
 
-def test_parameters(sample_api_request):
-    assert sample_api_request.parameters == {"sample_field": "test", "fields": "*"}
+def test_parameters(sample_api_params):
+    request = executor.GoogleAPIRequest(**sample_api_params)
+    assert request.parameters == {"sample_field": "test", "fields": "*"}
 
 
-def test_body():
-    assert 1
+def test_body(sample_api_params):
+    request = executor.GoogleAPIRequest(**sample_api_params)
+    assert request.body["name"] == sample_api_params["name"]

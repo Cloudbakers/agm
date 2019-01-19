@@ -11,7 +11,7 @@ import concurrent.futures
 import itertools
 from socket import error as SocketError
 from urllib3.exceptions import HTTPError
-from . import google_auth
+from . import google_auth, docs
 
 NUM_RETRIES = 10
 
@@ -45,6 +45,29 @@ class GoogleAPIRequest:
         self.retry = False
         self.outfile = outfile
         self.retry_count = NUM_RETRIES
+        self.parse_body()
+
+    def parse_body(self):  # Slow?
+        # TODO: maybe move this
+        """
+        We want to take the parameters that are part of the body and send them
+        to the body, and parameters that are part of parameters to remain parameters
+        """
+        method_docs = docs.get_method_docs(
+            self.service, self.resources, self.method, version=self.version
+        )
+        body_docs = method_docs.get_body_properties()
+        body_data = {}
+        new_parameters = {}
+        if body_docs:
+            body_params = set(body_docs.keys())
+            for parameter, value in self.parameters.items():
+                if parameter in body_params:
+                    body_data[parameter] = value
+                else:
+                    new_parameters[parameter] = value
+            self.parameters = new_parameters
+            self.body = body_data
 
     def get_batched_together(self):
         """
