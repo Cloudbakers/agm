@@ -22,6 +22,19 @@ This will return a json with a summary of the request and and the response from 
 
 And AGM will iterate over that list in order to get information about each file. If you provide multiple values for multiple parameters, AGM will iterate over each list together. AGM uses batch requests and multithreading for high performance, so AGM is especially suitable for very large, long-running tasks that involve many API requests.
 
+AGM will automatically convert flags into data to send to the request body. For example if I want to create a file in drive, I can send the body directly as a key-value dictionary, such as
+
+.. code-block:: bash
+
+   agm drive files create --user myemail@gmail.com --body "{'name': 'myfile'}"
+
+This is a bit cumbersome, so AGM allows you to pass flags, and will determine whether or not they should be in the body of the request, like so:
+
+
+.. code-block:: bash
+
+   agm drive files create --user myemail@gmail.com --name myfile
+
 For documentation on a command, run the command with the :code:`-d` or :code:`--docs` flag. This flag can be ommitted if you want information about a service or resource. Just typing :code:`agm` will list all of the available APIs.
 
 If :code:`--outfile` is ommitted, output will be printed to the console.
