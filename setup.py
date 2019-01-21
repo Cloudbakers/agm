@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-with open("readme.rst", "r") as fh:
+with open("README.rst", "r") as fh:
     long_description = fh.read()
 
 setup_requirements = ["pytest-runner"]
@@ -10,7 +10,7 @@ test_requirements = ["pytest"]
 
 setup(
     name="agm",
-    version="0.1.0",
+    version="0.1.3",
     license="Apache",
     author="Alex Wennerberg",
     author_email="alex@alexwennerberg.com",
@@ -36,12 +36,14 @@ setup(
         # 'Development Status :: 1 - Planning',
         # 'Development Status :: 2 - Pre-Alpha',
         "Development Status :: 3 - Alpha",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
         # 'Development Status :: 4 - Beta',
         # 'Development Status :: 5 - Production/Stable',
         # 'Development Status :: 6 - Mature',
         # 'Development Status :: 7 - Inactive',
         "License :: OSI Approved :: Apache Software License",
-        "Programming Language :: Python :: 3",
     ],
     keywords=["google google-apis gcp gsuite cli"],
     packages=find_packages(exclude=["contrib", "docs", "tests*"]),
