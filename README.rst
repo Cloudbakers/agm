@@ -7,6 +7,11 @@ AGM
 .. image:: https://badge.fury.io/py/agm.svg
     :target: https://badge.fury.io/py/agm
 
+.. image:: https://travis-ci.org/Cloudbakers/agm.svg?branch=master
+    :target: https://travis-ci.org/Cloudbakers/agm
+
+.. image:: https://img.shields.io/pypi/pyversions/agm.svg
+
 AGM is an unofficial command line interface for Google APIs, written in Python. For example, if I wanted to get a list of all the items in my drive account, I would use the command:
 
 .. code-block:: bash

@@ -218,6 +218,11 @@ class MethodDocumentation:
             schema = request_body.get("$ref")
             return self.service.get_schema(schema)
 
+    def get_body_properties(self):
+        body = self.get_request_body()
+        if body:
+            return body.get("properties")
+
     def __str__(self):
         out_str = header("Method: {}".format(self.name))
         out_str += self.docs.get("description")
@@ -278,8 +283,13 @@ def item_definition(item, type, description, indent=0):
     )
 
 
-def get_methods_body():
-    return
+def get_method_docs(
+    service_name, resource_names, method_name, version=None
+):  # awkward function
+    service = ServiceDocumentation(service_name, version)
+    resource = ResourceDocumentation(service, resource_names)
+    method = MethodDocumentation(service, resource, method_name)
+    return method
 
 
 def parse_command(command, version=None):
