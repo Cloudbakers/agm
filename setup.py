@@ -13,7 +13,7 @@ setup(
     version="0.1.3",
     license="Apache",
     author="Alex Wennerberg",
-    author_email="alex@alexwennerberg.com",
+    author_email="awennerberg@cloudbakers.com",
     description="An (unofficial) command line interface for Google APIs",
     long_description=long_description,
     url="https://github.com/Cloudbakers/agm",
