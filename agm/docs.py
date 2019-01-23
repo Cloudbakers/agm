@@ -93,6 +93,7 @@ class ServiceDocumentation:
         else:
             name = api_name
             version = version or get_preferred_version(name)
+        self.version = version
         result = requests.get(
             "https://www.googleapis.com/discovery/v1/apis/{}/{}/rest".format(
                 name, version

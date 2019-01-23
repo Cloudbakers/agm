@@ -247,9 +247,10 @@ def get_list_of_requests(fully_parsed_args):
     request_list = []
     for request_cmd in fully_parsed_args:
         command = request_cmd["command"]
-        service = command[0]
+        service_docs = docs.ServiceDocumentation(command[0])
+        service = service_docs.name
         outfile = request_cmd.get("outfile")
-        version = request_cmd.get("version") or docs.get_preferred_version(service)
+        version = request_cmd.get("version") or service_docs.version
         reserved, _ = parse_known_args([])
         reserved = set(vars(reserved).keys()) - set(["user", "version"])
         nonreserved_params = {k: v for k, v in request_cmd.items() if k not in reserved}
