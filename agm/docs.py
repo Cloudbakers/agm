@@ -10,7 +10,7 @@ import colorful
 import requests
 import requests_cache
 
-from . import utils
+from . import utils, exceptions
 
 colorful.use_style("solarized")
 # Since the discovery document doesn't change often, I use a cache in order to
@@ -58,7 +58,8 @@ def get_preferred_version(service_name):
     ]
     if not release_versions:
         versions.reverse()
-        return versions[0]
+        if versions:
+            return versions[0]
     else:
         return release_versions[0]
 
@@ -301,14 +302,19 @@ def parse_command(command, version=None):
     service = None
     resource = None
     method = None
-    if len(command_list) > 0:
-        service_name = command_list[0]
-        service = ServiceDocumentation(service_name, version)
-    if len(command_list) > 1:
-        resource = ResourceDocumentation(service, command_list[1:])
-        if resource.name != command_list[-1]:
-            method = MethodDocumentation(service, resource, command_list[-1])
-    return service, resource, method
+    try:
+        if len(command_list) > 0:
+            service_name = command_list[0]
+            service = ServiceDocumentation(service_name, version)
+        if len(command_list) > 1:
+            resource = ResourceDocumentation(service, command_list[1:])
+            if resource.name != command_list[-1]:
+                method = MethodDocumentation(service, resource, command_list[-1])
+        return service, resource, method
+    except KeyError:
+        raise exceptions.InvalidCommandException(
+            "Invalid service, resource or method name."
+        )
 
 
 def print_docs(service, resource, method):
