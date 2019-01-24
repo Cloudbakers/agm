@@ -22,7 +22,7 @@ AGM will parse this command and efficiently execute these requests. AGM works wi
 
 This tool is currenly in *Alpha*, so bugs are possible. Please report any issues to the `issues <https://github.com/Cloudbakers/agm/issues>`_ tab on GitHub. If you'd like to contribute, please let me know or submit a pull request!
 
-
+Developed and maintained by [Alex Wennerberg](https://github.com/alexwennerberg)
 Documentation
 -------------
 
