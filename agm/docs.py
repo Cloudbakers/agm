@@ -154,11 +154,13 @@ class ResourceDocumentation:
     def get_resource_docs(self, resource_names):
         """ eg calendar users """
         nested_resource = self.service.document
+        name = None
         for resource in resource_names or []:
             child_resource = nested_resource.get("resources", {}).get(resource)
             if child_resource:
-                self.name = resource
+                name = resource
                 nested_resource = child_resource
+        self.name = name
         resource = nested_resource
         return resource
 
@@ -204,15 +206,12 @@ class MethodDocumentation:
             method_name
         )  # TODO: rename to document
         if not self.docs:
-            return
+            raise exceptions.InvalidCommandException("Invalid method name")
         self.name = self.docs["id"]
         self.scopes = self.docs.get("scopes")
 
     def get_scopes(self):
         return self.docs.get("scopes")
-
-    def get_parameters(self):
-        return self.a
 
     def get_request_body(self):
         request_body = self.docs.get("request")
