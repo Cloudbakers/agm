@@ -14,6 +14,7 @@ Welcome to AGM's documentation!
    installation 
    using_agm
    development
+   apis
 
 
 
