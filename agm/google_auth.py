@@ -164,7 +164,7 @@ class Service:
             )
             return self.get_oauth_service(oauth)
         else:
-            self.keyfile = get_service_account_keyfile()
+            self.keyfile = self.keyfile or get_service_account_keyfile()
             return self.get_service_account_service()
 
 
