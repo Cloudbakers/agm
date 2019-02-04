@@ -110,7 +110,14 @@ class GoogleAPIRequest:
                 print(outstring)
         if self.pbar:
             # Update TQDM progress bar
-            if not output.get("response", {}).get("nextPageToken"):
+            response = output.get("response")
+            if (
+                response
+                and isinstance(response, dict)
+                and response.get("nextPageToken")
+            ):
+                pass
+            else:
                 self.pbar.update(1)
 
     def __repr__(self):

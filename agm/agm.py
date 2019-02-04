@@ -235,7 +235,9 @@ def run(fully_parsed_args):
         smoothing=0.1,
         leave=False,
     )
-    executor.multithread_execute_requests(requests, scopes=scopes)
+    executor.multithread_execute_requests(
+        requests, scopes=scopes, keyfile=args.get("keyfile")
+    )
     executor.GoogleAPIRequest.pbar.close()
 
 
