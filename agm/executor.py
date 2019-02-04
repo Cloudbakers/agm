@@ -159,6 +159,9 @@ def execute_requests(requests, service, version, user, keyfile, scopes):
         delegated_email=user,
         keyfile=keyfile,
     ).build()  # TODO: refactor a bit
+    if not service:
+        logger.warn("Unable to authenticate user {}".format(user))
+        return 0
     GOOGLE_API_RECOMMENDED_CHUNK_SIZE = 50
     requests_queue = iter(requests)
     all_responses = []

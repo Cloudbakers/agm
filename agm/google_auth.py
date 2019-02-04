@@ -165,7 +165,8 @@ class Service:
             return self.get_oauth_service(oauth)
         else:
             self.keyfile = self.keyfile or get_service_account_keyfile()
-            return self.get_service_account_service()
+            service = self.get_service_account_service()
+            return service
 
 
 def print_info():  # colorize this and format it nice
