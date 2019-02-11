@@ -8,7 +8,7 @@ Get all user emails across a G Suite instance:
 
 ```
 agm directory users list \
-  -u awennerberg@demo.cloudbakers.com \
+  -u [admin user] \
   --customer my_customer | 
 jq -r .response.users[].primaryEmail
 ```
