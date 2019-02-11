@@ -300,12 +300,15 @@ def parse_all_args(stdin, argslist):
     all_options.update(vars(known))
     all_options.update(process_body(vars(parse_unknown_args(unknown))))
     if injson:
+        outjson = []
+        all_options_list = list(all_options.items())
         for item in injson:
             for k, v in item.items():
                 if not isinstance(v, list):
                     item[k] = [v]
-            item.update(all_options)
-        return injson
+            # merge. Piped input overwrites command line flags if conflict
+            outjson.append(dict(all_options_list + list(item.items())))
+        return outjson
     else:
         output = [all_options]
     return output

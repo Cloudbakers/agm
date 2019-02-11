@@ -6,7 +6,7 @@ from agm import agm
 simple_args_list = ["drive", "files", "etc", "list", "-v", "--fakearg", "test_data"]
 unknown_args_list = [
     "--long",
-    "a",
+    "old",
     "-s",
     "b",
     "--list",
@@ -16,7 +16,7 @@ unknown_args_list = [
     "--flag",
     "--flag2",
 ]
-example_dicts = [{"a": 1}, {"b": "12"}]
+example_dicts = [{"a": 1, "b": "12", "long": "new"}]
 piped_standard_json = json.dumps(example_dicts)
 piped_jsonlines = "\n".join(json.dumps(i) for i in example_dicts)
 piped_jsonlinesb = "\n".join(json.dumps(i, indent=2) for i in example_dicts)
@@ -65,7 +65,7 @@ class TestUnknownArgs:
         self.parsed_args = agm.parse_unknown_args(self.test_args)
 
     def test_long(self):
-        assert self.parsed_args.long == ["a"]
+        assert self.parsed_args.long == ["old"]
 
     def test_short(self):
         assert self.parsed_args.s == ["b"]
@@ -93,5 +93,9 @@ class TestAllArgs:
         self.parsed_dict = agm.parse_all_args(self.json_stdin, self.argslist)
         return
 
-    def test_overlap(self):  # TODO
-        return
+    def test_overlap(self):
+        print(self.parsed_dict)
+        assert len(self.parsed_dict) == 1
+        first = self.parsed_dict[0]
+        assert first["a"] == [1]
+        assert first["long"] == ["new"]
