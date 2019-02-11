@@ -4,7 +4,14 @@ AGM is just a wrapper around the Google APIs, so in most cases you can refer to 
 
 ## Admin SDKs
 
-TBD
+Get all user emails across a G Suite instance:
+
+```
+agm directory users list \
+  -u [admin user] \
+  --customer my_customer | 
+jq -r .response.users[].primaryEmail
+```
 
 ## Drive
 
