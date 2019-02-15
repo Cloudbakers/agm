@@ -13,6 +13,8 @@ agm directory users list \
 jq -r .response.users[].primaryEmail
 ```
 
+This is useful for piping into another command if you want to perform an action on all users.
+
 ## Drive
 
 TBD
