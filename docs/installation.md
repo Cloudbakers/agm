@@ -6,9 +6,9 @@ AGM requires Python>=3.5. I haven't tested installation on Windows, but I plan o
 
 To install AGM via pip, run this command:
 ```
-pip install agm
+pip install --user agm
 ```
-If you don't have pip installed, follow [this guide](https://docs.python-guide.org/starting/installation/). Depending on your Python environment, you may need to run `pip3` instead of `pip`.
+If you don't have pip installed, follow [this guide](https://docs.python-guide.org/starting/installation/). Depending on your Python environment, you may need to run `pip3` instead of `pip`. If you haven't set up a Python environment on your machine and are using a Linux-based system, you may need to add the line `export PATH=$PATH":$HOME/.local/bin"` to your `~/.bashrc` file.
 
 ## Setup
 
