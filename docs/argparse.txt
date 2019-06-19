@@ -1,6 +1,6 @@
 usage: agm [-h] [-v] [-u [USER [USER ...]]] [--outfile OUTFILE] [-d]
            [--version] [--scopes SCOPES [SCOPES ...]] [--keyfile KEYFILE] [-V]
-           [--run_oauth] [--authinfo]
+           [--run_oauth] [--auth_info]
            [command [command ...]]
 
  _______ _______ __   __
@@ -41,4 +41,4 @@ Tools:
   -V                    AGM version
   --run_oauth           Authenticate an individual Google account and store
                         the credentials.Requires scopes and user to be set.
-  --authinfo            Print information about authenticated keys
+  --auth_info            Print information about authenticated keys

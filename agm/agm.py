@@ -78,6 +78,7 @@ def get_parser():
     tools.add_argument(
         "--run_oauth",
         help="Authenticate an individual Google account and store the credentials."
+        "Requires client_secret.json inside ~/.agm"
         "Requires scopes and user to be set.",
         action="store_true",
     )
@@ -85,7 +86,7 @@ def get_parser():
         "--noauth_local_webserver", help=argparse.SUPPRESS, action="store_true"
     )
     tools.add_argument(
-        "--authinfo",
+        "--auth_info",
         help="Print information about authenticated keys",
         action="store_true",
     )
@@ -113,13 +114,13 @@ def load_json_string_if_possible(input_string):
                 pass
             else:
                 output = None
-        except Exception as e:  # TODO: specify exception
+        except Exception:  # TODO: specify exception
             lines = re.findall("[^}]+}", input_string)
             output = []
             for line in lines:
                 try:
                     output.append(json.loads(line))
-                except Exception as e:
+                except Exception:
                     return None
     return output or None
 
@@ -158,7 +159,7 @@ def cli():  # MAIN
     if not sys.stdin.isatty():
         try:
             stdin = sys.stdin.read()
-        except Exception as e:
+        except Exception:
             pass
     try:
         fully_parsed_args = parse_all_args(stdin, argslist)
@@ -197,11 +198,10 @@ def run(fully_parsed_args):
         check_for_updates()
         print(pkg_resources.require("agm")[0].version)
         return
-    elif args.get("authinfo"):
+    elif args.get("auth_info"):
         google_auth.print_info()
         return
     elif args.get("run_oauth"):
-        path = args.get("run_oauth")
         user = args.get("user")
         for item in ["scopes", "user"]:
             invalid = False
