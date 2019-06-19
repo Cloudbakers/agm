@@ -66,7 +66,6 @@ def get_preferred_version(service_name):
 
 def print_apis():
     output_str = colorful.blue("Available APIs:")
-    names = set()
     for api in list_api_names_versions():
         output_str += colorful.green("\n" + api.get("name") + " " + api.get("version"))
     print(output_str)
@@ -206,7 +205,9 @@ class MethodDocumentation:
             method_name
         )  # TODO: rename to document
         if not self.docs:
-            raise exceptions.InvalidCommandException("Invalid method name")
+            raise exceptions.InvalidCommandException(
+                "Invalid method name '{}'".format(method_name)
+            )
         self.name = self.docs["id"]
         self.scopes = self.docs.get("scopes")
 
