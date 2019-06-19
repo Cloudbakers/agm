@@ -34,6 +34,8 @@ In order to run the oauth authentication, use the following command:
 agm --run-oauth --user [emaill_to_authenticate] --scopes [scopes to grant]*
 ```
 
+You may receive a warning at this point. Click "advanced" and proceed anyway.
+
 \*See the list of [API scopes](https://developers.google.com/identity/protocols/googlescopes) and decide on the scopes that you need for your purpose. You can always change these by running this command again with different scopes.
 
 Authenticated credentials will be stored in `~/.agm/oauth_credentials`. These keys are sensitive, so keep them safe and regularly delete any old credentials you don't need anymore.

@@ -16,6 +16,8 @@ AGM maps commands to the associated `Google API <https://developers.google.com/i
 
 This will return a json with a summary of the request and and the response from the server. If the request failed, the error message will be in the "error" field. You can provide a list for any parameter and AGM will iterate over that list. For example, if I wanted to get information about a list of files,
 
+NOTE: If you want to get a list of items and specify a field selection, make sure to specify "nextPageToken" in your fields query
+
 .. code-block:: bash
 
    agm drive files get --user myemail@gmail.com --fileId abc def ghi
