@@ -170,6 +170,7 @@ def cli():  # MAIN
         if logger.level == logging.DEBUG:
             logger.exception(e)
         print("ERROR: " + str(e))
+        exit(1)
 
     except Exception as e:
         print(
