@@ -23,7 +23,6 @@ keyfile_directory = []
 
 
 def get_service_account_keyfile():
-    keyfiles = []
     for loc in utils.KEYFILE_PATHS:
         for file in os.listdir(loc):
             if (
@@ -120,12 +119,15 @@ class Service:
             if service:
                 return service
 
-    def attempt_authorization(self, keyfile, scope):
+    def attempt_authorization(
+        self, keyfile, scope, keyfile_type="json"
+    ):  # TODO: add p12
         for_user = " for user {}".format(self.delegated_email)
         try:
-            credentials = ServiceAccountCredentials.from_json_keyfile_name(
-                keyfile, scope
-            )
+            if keyfile_type == "json":
+                credentials = ServiceAccountCredentials.from_json_keyfile_name(
+                    keyfile, scope
+                )
             debug_line = "Authorized {} with scope {}".format(keyfile, scope)
             # delegated permissions
             if self.delegated_email:
