@@ -62,4 +62,4 @@ AGM will also accept a json string as piped input of the format:
     }
    
 
-
+Note that performance will degrade if you try and pipe in an extremely large amount of input. This is an open issue that I am looking to resolve.

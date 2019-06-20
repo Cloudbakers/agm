@@ -168,8 +168,6 @@ def execute_requests(requests, service, version, user, keyfile, scopes):
         return 0
     GOOGLE_API_RECOMMENDED_CHUNK_SIZE = 50
     requests_queue = iter(requests)
-    all_responses = []
-    retry_count = 10
     while 1:
         chunk = itertools.islice(requests_queue, GOOGLE_API_RECOMMENDED_CHUNK_SIZE)
         requests_chunk = list(chunk)
@@ -291,8 +289,10 @@ class Batch:
                 request.retry = True
                 request.retry_count -= 1
             if not retry:
+                request.retry = False
                 request.callback(exception)
             elif request.retry_count == 0:
+                request.retry = False
                 request.callback(exception)
         else:
             request.retry = False
@@ -304,6 +304,7 @@ class Batch:
             "quotaExceeded",
             "internalError",  # Sometimes shouldn't retry
             "rateLimitExceeded",
+            "sharingRateLimitExceeded",
             "backendError",
             "transientError",
         ]
