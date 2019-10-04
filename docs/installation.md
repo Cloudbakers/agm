@@ -16,12 +16,16 @@ AGM can be authenticated in two ways, via service account or through individual 
 
 ### Service account authentication
 
+This will grant agm access to all users in a domain.
+
 First, follow Google's guide for [Using OAuth 2.0 for Server to Server Applications](https://developers.google.com/identity/protocols/OAuth2ServiceAccount#creatinganaccount). Put this JSON keyfile into ~/.agm/ (preferred) or pass it into AGM with the `--keyfile` flag. Beware this key is tremendously powerful. Keep it secret and safe and don't share it with anyone! Be mindful of the scopes you are using and refurnish a new key from time to time.
 
-Make sure any APIs you wanna use are enabled in the project associated with your service account!
+Make sure any APIs you wanna use are enabled in the project associated with your service account and that the scopes are added to your key's client ID as described in [these docs](https://developers.google.com/admin-sdk/directory/v1/guides/delegation#delegate_domain-wide_authority_to_your_service_account)
 
 
 ### Individual OAuth2 authentication
+
+This will grant AGM access to individual user accounts.
 
 Navigate to the [Google API credentials page](https://console.developers.google.com/apis/credentials).
 
