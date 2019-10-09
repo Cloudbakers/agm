@@ -63,3 +63,12 @@ AGM will also accept a json string as piped input of the format:
    
 
 Note that performance will degrade if you try and pipe in an extremely large amount of input. This is an open issue that I am looking to resolve.
+
+
+Advanced Usage
+--------------
+
+AGM is built to interact with other Unix command line tools, such as [jq](https://stedolan.github.io/jq/)
+
+See the [examples](https://github.com/Cloudbakers/agm/tree/master/examples) folder for some examples of more complex actions
+
