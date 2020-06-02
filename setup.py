@@ -10,7 +10,7 @@ test_requirements = ["pytest"]
 
 setup(
     name="agm",
-    version="0.1.8",
+    version="0.1.9",
     license="Apache",
     author="Alex Wennerberg",
     author_email="awennerberg@cloudbakers.com",
