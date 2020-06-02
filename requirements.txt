@@ -4,3 +4,4 @@ requests==2.23.0
 colorful==0.4.4
 tqdm==4.46.0
 google_api_python_client==1.8.4
+pyopenssl==19.1.0

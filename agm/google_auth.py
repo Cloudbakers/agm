@@ -14,9 +14,9 @@ from . import utils
 from .exceptions import InvalidAuthException
 
 logger = logging.getLogger(__name__)
-logging.getLogger("googleapiclient").setLevel(logging.ERROR)
-logging.getLogger("oauth2client").setLevel(logging.ERROR)
-logging.getLogger("urllib3").setLevel(logging.WARNING)
+# logging.getLogger("googleapiclient").setLevel(logging.ERROR)
+# logging.getLogger("oauth2client").setLevel(logging.ERROR)
+# logging.getLogger("urllib3").setLevel(logging.WARNING)
 
 services = {}
 keyfile_directory = []
@@ -28,6 +28,8 @@ def get_service_account_keyfile():
             if (
                 file.endswith(".json") and file != "client_secret.json"
             ):  # TODO check if it has keyfile in it, not just any json
+                return os.path.join(loc, file)
+            elif file.endswith(".p12"):
                 return os.path.join(loc, file)
     raise InvalidAuthException(
         "No keyfile found. "
@@ -120,13 +122,20 @@ class Service:
                 return service
 
     def attempt_authorization(
-        self, keyfile, scope, keyfile_type="json"
+        self, keyfile, scope
     ):  # TODO: add p12
         for_user = " for user {}".format(self.delegated_email)
         try:
-            if keyfile_type == "json":
+            if keyfile.endswith("json"):
                 credentials = ServiceAccountCredentials.from_json_keyfile_name(
                     keyfile, scope
+                )
+            elif keyfile.endswith("p12"):
+                # when using p12 keys, the title of the key must be the SA email
+                sa_email = os.path.splitext(os.path.basename(keyfile))[0]
+                credentials = ServiceAccountCredentials.from_p12_keyfile(
+                    service_account_email=sa_email, filename=keyfile,
+                    scopes=scope
                 )
             debug_line = "Authorized {} with scope {}".format(keyfile, scope)
             # delegated permissions
