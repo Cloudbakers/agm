@@ -1,6 +1,6 @@
 httplib2==0.18.0
 requests_cache==0.4.13
-requests==2.23.0
+requests==2.31.0
 colorful==0.4.4
 tqdm==4.46.0
 google_api_python_client==1.8.4
